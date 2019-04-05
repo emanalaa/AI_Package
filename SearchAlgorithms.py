@@ -38,7 +38,6 @@ class SearchAlgorithms:
         for i in range(len(rows)):
             cols = rows[i].split(',')
             for j in range(len(cols)):
-                # print(cols[j])
                 maze.append(cols[j])
 
         index = 0
