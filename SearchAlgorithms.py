@@ -38,7 +38,6 @@ class SearchAlgorithms:
         for i in range(len(rows)):
             cols = rows[i].split(',')
             for j in range(len(cols)):
-                #print(cols[j])
                 maze.append(cols[j])
 
         index = 0
@@ -49,44 +48,42 @@ class SearchAlgorithms:
                 node.id = index
                 board[i].append(node)
                 index += 1
+        self.rows = rows
+        self.cols = cols
+        self.board = board
 
+    def DFS(self):
+        # Fill the correct path in self.path
+        # self.fullPath should contain the order of visited nod
+        # es
+        return self.path, self.fullPath
 
-def DFS(self):
-    # Fill the correct path in self.path
-    # self.fullPath should contain the order of visited nod
-    # es
-    return self.path, self.fullPath
+    def BFS(self):
+        # Fill the correct path in self.path
+        # self.fullPath should contain the order of visited nodes
 
+        return self.path, self.fullPath
 
-def BFS(self):
-    # Fill the correct path in self.path
-    # self.fullPath should contain the order of visited nodes
+    #def get_adjecent(board):
 
-    return self.path, self.fullPath
+    def UCS(self):
+        # Fill the correct path in self.path
+        # self.fullPath should contain the order of visited nodes
+        return self.path, self.fullPath, self.totalCost
 
-#def get_adjecent(board):
+    def AStarEuclideanHeuristic(self):
+        # Cost for a step is calculated based on edge cost of node
+        # and use Euclidean Heuristic for evaluating the heuristic value
+        # Fill the correct path in self.path
+        # self.fullPath should contain the order of visited nodes
+        return self.path, self.fullPath, self.totalCost
 
-
-def UCS(self):
-    # Fill the correct path in self.path
-    # self.fullPath should contain the order of visited nodes
-    return self.path, self.fullPath, self.totalCost
-
-
-def AStarEuclideanHeuristic(self):
-    # Cost for a step is calculated based on edge cost of node
-    # and use Euclidean Heuristic for evaluating the heuristic value
-    # Fill the correct path in self.path
-    # self.fullPath should contain the order of visited nodes
-    return self.path, self.fullPath, self.totalCost
-
-
-def AStarManhattanHeuristic(self):
-    # Cost for a step is 1
-    # and use ManhattanHeuristic for evaluating the heuristic value
-    # Fill the correct path in self.path
-    # self.fullPath should contain the order of visited nodes
-    return self.path, self.fullPath, self.totalCost
+    def AStarManhattanHeuristic(self):
+        # Cost for a step is 1
+        # and use ManhattanHeuristic for evaluating the heuristic value
+        # Fill the correct path in self.path
+        # self.fullPath should contain the order of visited nodes
+        return self.path, self.fullPath, self.totalCost
 
 
 def main():
