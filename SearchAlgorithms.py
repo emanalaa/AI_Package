@@ -48,42 +48,106 @@ class SearchAlgorithms:
                 node.id = index
                 board[i].append(node)
                 index += 1
-        self.rows = rows
-        self.cols = cols
-        self.board = board
 
-    def DFS(self):
-        # Fill the correct path in self.path
-        # self.fullPath should contain the order of visited nod
-        # es
-        return self.path, self.fullPath
+        self.rows = rows;
+        self.cols = cols;
+        self.board = board;
+        for i in range(len(self.rows)):
+            for j in range(len(self.cols)):
+                if i == 0:
+                    if j == 0:
+                        self.board[i][j].up = None
+                        self.board[i][j].down = self.board[i + 1][j].value
+                        self.board[i][j].left = None
+                        self.board[i][j].right = self.board[i][j + 1].value
 
-    def BFS(self):
-        # Fill the correct path in self.path
-        # self.fullPath should contain the order of visited nodes
+                    elif j == (len(self.cols) - 1):
+                        self.board[i][j].up = None
+                        self.board[i][j].down = self.board[i + 1][j].value
+                        self.board[i][j].left = self.board[i][j - 1].value
+                        self.board[i][j].right = None
 
-        return self.path, self.fullPath
+                    else:
+                        self.board[i][j].up = None
+                        self.board[i][j].down = self.board[i + 1][j].value
+                        self.board[i][j].left = self.board[i][j - 1].value
+                        self.board[i][j].right = self.board[i][j + 1].value
 
-    #def get_adjecent(board):
+                elif i == (len(self.rows) - 1):
+                    if j == 0:
+                        self.board[i][j].up = self.board[i - 1][j].value
+                        self.board[i][j].down = None
+                        self.board[i][j].left = None
+                        self.board[i][j].right = self.board[i][j + 1].value
 
-    def UCS(self):
-        # Fill the correct path in self.path
-        # self.fullPath should contain the order of visited nodes
-        return self.path, self.fullPath, self.totalCost
+                    elif j == (len(self.cols) - 1):
+                        self.board[i][j].up = self.board[i - 1][j].value
+                        self.board[i][j].down = None
+                        self.board[i][j].left = self.board[i][j - 1].value
+                        self.board[i][j].right = None
 
-    def AStarEuclideanHeuristic(self):
-        # Cost for a step is calculated based on edge cost of node
-        # and use Euclidean Heuristic for evaluating the heuristic value
-        # Fill the correct path in self.path
-        # self.fullPath should contain the order of visited nodes
-        return self.path, self.fullPath, self.totalCost
+                    else:
+                        self.board[i][j].up = self.board[i - 1][j].value
+                        self.board[i][j].down = None
+                        self.board[i][j].left = self.board[i][j - 1].value
+                        self.board[i][j].right = self.board[i][j + 1].value
 
-    def AStarManhattanHeuristic(self):
-        # Cost for a step is 1
-        # and use ManhattanHeuristic for evaluating the heuristic value
-        # Fill the correct path in self.path
-        # self.fullPath should contain the order of visited nodes
-        return self.path, self.fullPath, self.totalCost
+                else:
+                    if j == 0:
+                        self.board[i][j].up = self.board[i - 1][j].value
+                        self.board[i][j].down = self.board[i + 1][j].value
+                        self.board[i][j].left = None
+                        self.board[i][j].right = self.board[i][j + 1].value
+
+                    elif j == (len(self.cols) - 1):
+                        self.board[i][j].up = self.board[i - 1][j].value
+                        self.board[i][j].down = self.board[i + 1][j].value
+                        self.board[i][j].left = self.board[i][j - 1].value
+                        self.board[i][j].right = None
+                    else:
+                        self.board[i][j].up = self.board[i - 1][j].value
+                        self.board[i][j].down = self.board[i + 1][j].value
+                        self.board[i][j].left = self.board[i][j - 1].value
+                        self.board[i][j].right = self.board[i][j + 1].value
+
+
+def DFS(self):
+    # Fill the correct path in self.path
+    # self.fullPath should contain the order of visited nod
+    # es
+    return self.path, self.fullPath
+
+
+def BFS(self):
+    # Fill the correct path in self.path
+    # self.fullPath should contain the order of visited nodes
+
+    return self.path, self.fullPath
+
+#def get_adjecent(board):
+
+
+def UCS(self):
+    # Fill the correct path in self.path
+    # self.fullPath should contain the order of visited nodes
+    return self.path, self.fullPath, self.totalCost
+
+
+def AStarEuclideanHeuristic(self):
+    # Cost for a step is calculated based on edge cost of node
+    # and use Euclidean Heuristic for evaluating the heuristic value
+    # Fill the correct path in self.path
+    # self.fullPath should contain the order of visited nodes
+    return self.path, self.fullPath, self.totalCost
+
+
+def AStarManhattanHeuristic(self):
+    # Cost for a step is 1
+    # and use ManhattanHeuristic for evaluating the heuristic value
+    # Fill the correct path in self.path
+    # self.fullPath should contain the order of visited nodes
+    return self.path, self.fullPath, self.totalCost
+
 
 
 def main():
