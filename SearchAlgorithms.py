@@ -32,7 +32,7 @@ class SearchAlgorithms:
         the leftmost node'''
 
         rows = mazeStr.split(' ')
-        board = [[]] * len(rows)
+        board = []
         c = rows[0].split(',')
         maze = []
         for i in range(len(rows)):
