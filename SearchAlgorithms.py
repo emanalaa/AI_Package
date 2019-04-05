@@ -38,7 +38,6 @@ class SearchAlgorithms:
         for i in range(len(rows)):
             cols = rows[i].split(',')
             for j in range(len(cols)):
-                #print(cols[j])
                 maze.append(cols[j])
 
         index = 0
@@ -148,6 +147,7 @@ def AStarManhattanHeuristic(self):
     # Fill the correct path in self.path
     # self.fullPath should contain the order of visited nodes
     return self.path, self.fullPath, self.totalCost
+
 
 
 def main():
