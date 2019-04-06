@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 class Node:
     id = None  # Unique value for each node.
     up = None  # Represents value of neighbors (up, down, left, right).
@@ -111,8 +113,76 @@ class SearchAlgorithms:
 
     def DFS(self):
         # Fill the correct path in self.path
-        # self.fullPath should contain the order of visited nod
-        # es
+        # self.fullPath should contain the order of visited nodes
+        rows_count = len(self.rows)
+        columns_count = len(self.cols)
+
+        visited = [0] * rows_count * columns_count
+        stack = []
+
+        for i in range(rows_count):
+            for j in range(columns_count):
+                if self.board[i][j].value == 'S':
+                    stack.append(self.board[i][j])
+
+        while len(stack) > 0:
+            length = len(stack)
+            current_node = stack[length-1]
+            visited[current_node.id] = 1
+            self.fullPath.append(current_node.id)
+            if current_node.up is not None and current_node.up.value != '#' and visited[current_node.up.id] == 0:
+                current_node.up.previousNode = current_node
+                if current_node.up.value == 'E':
+                    self.fullPath.append(current_node.up.id)
+                    self.path.append(current_node.up.id)
+                    break
+                elif current_node.up.value == '.':
+                    stack.append(current_node.up)
+
+            elif current_node.down is not None and current_node.down.value != '#' \
+                    and visited[current_node.down.id] == 0:
+                current_node.down.previousNode = current_node
+                if current_node.down.value == 'E':
+                    self.fullPath.append(current_node.down.id)
+                    self.path.append(current_node.down.id)
+                    break
+                elif current_node.down.value == '.':
+                    stack.append(current_node.down)
+
+            elif current_node.left is not None and current_node.left.value != '#' \
+                    and visited[current_node.left.id] == 0:
+                current_node.left.previousNode = current_node
+                if current_node.left.value == 'E':
+                    self.fullPath.append(current_node.left.id)
+                    self.path.append(current_node.left.id)
+                    break
+                elif current_node.left.value == '.':
+                    stack.append(current_node.left)
+
+            elif current_node.right is not None and current_node.right.value != '#' \
+                    and visited[current_node.right.id] == 0:
+                current_node.right.previousNode = current_node
+                if current_node.right.value == 'E':
+                    self.fullPath.append(current_node.right.id)
+                    self.path.append(current_node.right.id)
+                    break
+                elif current_node.right.value == '.':
+                    stack.append(current_node.right)
+            else:
+                stack.pop()
+        while current_node.value != 'S':
+            self.path.append(current_node.id)
+            current_node = current_node.previousNode
+
+        self.path.append(current_node.id)
+        self.path.reverse()
+
+        temp_list = []
+        for i in range(len(self.fullPath)):
+            if self.fullPath[i] not in temp_list:
+                temp_list.append(self.fullPath[i])
+        self.fullPath.clear()
+        self.fullPath.append(temp_list)
         return self.path, self.fullPath
 
     def BFS(self):
