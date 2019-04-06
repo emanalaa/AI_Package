@@ -15,25 +15,24 @@ class Node:
 
 
 class SearchAlgorithms:
-    ''' * DON'T change Class, Function or Parameters Names and Order
+    """ * DON'T change Class, Function or Parameters Names and Order
         * You can add ANY extra functions,
           classes you need as long as the main
-          structure is left as is '''
+          structure is left as is """
     path = []  # Represents the correct path from start node to the goal node.
     fullPath = []  # Represents all visited nodes from the start node to the goal node.
     totalCost = -1  # Represents the total cost in case using UCS, AStar (Euclidean or Manhattan)
     maze = []
     board = None
-
+    cost = None
     def __init__(self, mazeStr, edgeCost=None):
-        ''' mazeStr contains the full board
+        """ mazeStr contains the full board
          The board is read row wise,
         the nodes are numbered 0-based starting
-        the leftmost node'''
+        the leftmost node"""
 
         rows = mazeStr.split(' ')
-        board = [[]] * len(rows)
-        c = rows[0].split(',')
+        board = []
         maze = []
         for i in range(len(rows)):
             cols = rows[i].split(',')
@@ -49,100 +48,113 @@ class SearchAlgorithms:
                 board[i].append(node)
                 index += 1
 
-        self.rows = rows;
-        self.cols = cols;
-        self.board = board;
+        self.rows = rows
+        self.cols = cols
+        self.board = board
         for i in range(len(self.rows)):
             for j in range(len(self.cols)):
                 if i == 0:
                     if j == 0:
                         self.board[i][j].up = None
-                        self.board[i][j].down = self.board[i + 1][j].value
+                        self.board[i][j].down = self.board[i + 1][j]
                         self.board[i][j].left = None
-                        self.board[i][j].right = self.board[i][j + 1].value
+                        self.board[i][j].right = self.board[i][j + 1]
 
                     elif j == (len(self.cols) - 1):
                         self.board[i][j].up = None
-                        self.board[i][j].down = self.board[i + 1][j].value
-                        self.board[i][j].left = self.board[i][j - 1].value
+                        self.board[i][j].down = self.board[i + 1][j]
+                        self.board[i][j].left = self.board[i][j - 1]
                         self.board[i][j].right = None
 
                     else:
                         self.board[i][j].up = None
-                        self.board[i][j].down = self.board[i + 1][j].value
-                        self.board[i][j].left = self.board[i][j - 1].value
-                        self.board[i][j].right = self.board[i][j + 1].value
+                        self.board[i][j].down = self.board[i + 1][j]
+                        self.board[i][j].left = self.board[i][j - 1]
+                        self.board[i][j].right = self.board[i][j + 1]
 
                 elif i == (len(self.rows) - 1):
                     if j == 0:
-                        self.board[i][j].up = self.board[i - 1][j].value
+                        self.board[i][j].up = self.board[i - 1][j]
                         self.board[i][j].down = None
                         self.board[i][j].left = None
-                        self.board[i][j].right = self.board[i][j + 1].value
+                        self.board[i][j].right = self.board[i][j + 1]
 
                     elif j == (len(self.cols) - 1):
-                        self.board[i][j].up = self.board[i - 1][j].value
+                        self.board[i][j].up = self.board[i - 1][j]
                         self.board[i][j].down = None
-                        self.board[i][j].left = self.board[i][j - 1].value
+                        self.board[i][j].left = self.board[i][j - 1]
                         self.board[i][j].right = None
 
                     else:
-                        self.board[i][j].up = self.board[i - 1][j].value
+                        self.board[i][j].up = self.board[i - 1][j]
                         self.board[i][j].down = None
-                        self.board[i][j].left = self.board[i][j - 1].value
-                        self.board[i][j].right = self.board[i][j + 1].value
+                        self.board[i][j].left = self.board[i][j - 1]
+                        self.board[i][j].right = self.board[i][j + 1]
 
                 else:
                     if j == 0:
-                        self.board[i][j].up = self.board[i - 1][j].value
-                        self.board[i][j].down = self.board[i + 1][j].value
+                        self.board[i][j].up = self.board[i - 1][j]
+                        self.board[i][j].down = self.board[i + 1][j]
                         self.board[i][j].left = None
-                        self.board[i][j].right = self.board[i][j + 1].value
+                        self.board[i][j].right = self.board[i][j + 1]
 
                     elif j == (len(self.cols) - 1):
-                        self.board[i][j].up = self.board[i - 1][j].value
-                        self.board[i][j].down = self.board[i + 1][j].value
-                        self.board[i][j].left = self.board[i][j - 1].value
+                        self.board[i][j].up = self.board[i - 1][j]
+                        self.board[i][j].down = self.board[i + 1][j]
+                        self.board[i][j].left = self.board[i][j - 1]
                         self.board[i][j].right = None
                     else:
-                        self.board[i][j].up = self.board[i - 1][j].value
-                        self.board[i][j].down = self.board[i + 1][j].value
-                        self.board[i][j].left = self.board[i][j - 1].value
-                        self.board[i][j].right = self.board[i][j + 1].value
+                        self.board[i][j].up = self.board[i - 1][j]
+                        self.board[i][j].down = self.board[i + 1][j]
+                        self.board[i][j].left = self.board[i][j - 1]
+                        self.board[i][j].right = self.board[i][j + 1]
+
+
+        if not(edgeCost is None):
+            x = 0
+            cost = [[0] * (len(self.cols)) for i in range(len(self.rows))]#for creating 2D array of 0's
+            for i in range(len(self.rows)):
+                for j in range(len(self.cols)):
+                    cost[i][j]=edgeCost[x]
+                    x += 1
+            self.cost = cost
+
 
     def DFS(self):
         # Fill the correct path in self.path
         # self.fullPath should contain the order of visited nod
         # es
         return self.path, self.fullPath
-    
+
     def BFS(self):
         # Fill the correct path in self.path
         # self.fullPath should contain the order of visited nodes
-    
+
         return self.path, self.fullPath
-    
-    #def get_adjecent(board):
-    
+
+    # def get_adjecent(board):
+
     def UCS(self):
         # Fill the correct path in self.path
         # self.fullPath should contain the order of visited nodes
+        for i in range(len(self.rows)):
+            for j in range(len(self.cols)):
+                print(self.cost[i][j])
         return self.path, self.fullPath, self.totalCost
-    
+
     def AStarEuclideanHeuristic(self):
         # Cost for a step is calculated based on edge cost of node
         # and use Euclidean Heuristic for evaluating the heuristic value
         # Fill the correct path in self.path
         # self.fullPath should contain the order of visited nodes
         return self.path, self.fullPath, self.totalCost
-    
+
     def AStarManhattanHeuristic(self):
         # Cost for a step is 1
         # and use ManhattanHeuristic for evaluating the heuristic value
         # Fill the correct path in self.path
         # self.fullPath should contain the order of visited nodes
         return self.path, self.fullPath, self.totalCost
-
 
 
 def main():
