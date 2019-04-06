@@ -26,7 +26,7 @@ class SearchAlgorithms:
     totalCost = -1  # Represents the total cost in case using UCS, AStar (Euclidean or Manhattan)
     maze = []
     board = None
-
+    cost = None
     def __init__(self, mazeStr, edgeCost=None):
         """ mazeStr contains the full board
          The board is read row wise,
@@ -110,6 +110,17 @@ class SearchAlgorithms:
                         self.board[i][j].down = self.board[i + 1][j]
                         self.board[i][j].left = self.board[i][j - 1]
                         self.board[i][j].right = self.board[i][j + 1]
+
+
+        if not(edgeCost is None):
+            x = 0
+            cost = [[0] * (len(self.cols)) for i in range(len(self.rows))]#for creating 2D array of 0's
+            for i in range(len(self.rows)):
+                for j in range(len(self.cols)):
+                    cost[i][j]=edgeCost[x]
+                    x += 1
+            self.cost = cost
+
 
     def DFS(self):
         # Fill the correct path in self.path
@@ -196,6 +207,9 @@ class SearchAlgorithms:
     def UCS(self):
         # Fill the correct path in self.path
         # self.fullPath should contain the order of visited nodes
+        for i in range(len(self.rows)):
+            for j in range(len(self.cols)):
+                print(self.cost[i][j])
         return self.path, self.fullPath, self.totalCost
 
     def AStarEuclideanHeuristic(self):
