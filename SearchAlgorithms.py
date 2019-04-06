@@ -111,7 +111,6 @@ class SearchAlgorithms:
                         self.board[i][j].left = self.board[i][j - 1]
                         self.board[i][j].right = self.board[i][j + 1]
 
-
         if not(edgeCost is None):
             x = 0
             cost = [[0] * (len(self.cols)) for i in range(len(self.rows))]#for creating 2D array of 0's
