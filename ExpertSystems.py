@@ -58,7 +58,7 @@ def low_sugar_function(symptoms_list, s1, s2, s3, s4, s5):
     for sy in user_symptoms:
         if sy in symptoms_list:
             counter += 1
-    if counter > 2:#and user_symptoms not in x:  # ana msh 3rfa ely b3d el and da leh
+    if counter > 2:
         first_time[0] = 0
         return True
     else:
@@ -72,7 +72,7 @@ def high_sugar_function(symptoms_list, s1, s2, s3, s4, s5, s6):
     for sy in user_symptoms:
         if sy in symptoms_list:
             counter += 1
-    if counter > 2:  # and user_symptoms not in x:  # ana msh 3rfa ely b3d el and da leh
+    if counter > 2:
         first_time[0] = 0
         return True
     else:
@@ -136,15 +136,15 @@ class MedicalExpertSystem(KnowledgeEngine):
         print("You have adult flu.")
 
     @Rule(Symptoms(high_sugar=True))
-    def print_highsugar(self):
+    def print_high_sugar(self):
         print("You have signs of high sugar.")
 
     @Rule(Symptoms(low_sugar=True))
-    def print_lowsugar(self):
+    def print_low_sugar(self):
         print("You have signs of low sugar.")
 
     @Rule(AND(Symptoms(diabetic_parents=True)))
-    def print_diab_parents(self):
+    def print_diabetic_parents(self):
         print("You could be diabetic.")
 
 
@@ -169,146 +169,6 @@ def medical_fun():
     else:
         my_engine.declare(Symptoms(Diabetic_Parents=True))
     my_engine.run()
-    '''#-------------------------------------------------------------------------cold sypmtoms
-    print("Enter Yes if you have runny nose, No if you don't.")
-    q1 = input()
-
-    if q1 == "Yes" or q1 == "yes":
-        my_engine.declare(Symptoms("runny nose"))
-
-    print("Enter Yes if you have a harsh cough or No if you don't.")
-    q1 = input()
-
-    if q1 == "Yes" or q1 == "yes":
-        my_engine.declare(Symptoms("harsh cough"))
-
-    #------------------------------------------------------------------------------------------------------measles
-    print("Enter yes if you have brownish-pink rash or No if you don't")
-    q2 = input()
-    if q2 == "Yes" or q2 == "yes":
-        my_engine.declare(Symptoms("brownish-pink rash"))
-
-    print("Enter yes if you have high and fast temperature or No if you don't")
-    q2 = input()
-    if q2 == "Yes" or q2 == "yes":
-        my_engine.declare(Symptoms("high and fast temperature"))
-
-    print("Enter yes if you have bloodshot eyes or No if you don't")
-    q2 = input()
-    if q2 == "Yes" or q2 == "yes":
-        my_engine.declare(Symptoms("bloodshot eyes"))
-
-    print("Enter yes if you have white spots inside cheek or No if you don't")
-    q2 = input()
-    if q2 == "Yes" or q2 == "yes":
-        my_engine.declare(Symptoms("white spots inside cheek"))
-    #-------------------------------------------------------------------------------------------------mumps
-    print("Enter yes if you have moderate temperature or no if you don't")
-    q3 = input()
-    if q3 == "Yes" or q3 == "yes":
-        my_engine.declare(Symptoms("moderate temperature"))
-
-    print("Enter yes if your saliva is not normal or no if you don't")
-    q3 = input()
-    if q3 == "Yes" or q3 == "yes":
-        my_engine.declare(Symptoms("saliva is not normal"))
-
-    print("Enter yes if you have swollen lymph nodes in neck or no if you don't")
-    q3 = input()
-    if q3 == "Yes" or q3 == "yes":
-        my_engine.declare(Symptoms("swollen lymph nodes in neck"))
-
-    print("Enter yes if your mouth is dry or no if not")
-    q3 = input()
-    if q3 == "Yes" or q3 == "yes":
-        my_engine.declare(Symptoms("mouth is dry"))
-    #-------------------------------------------------------------------------flu
-    print("Enter yes if you have conjunctives or no if you don't")
-    q4 = input()
-    if q4 == "Yes" or q4 == "yes":
-        my_engine.declare((Symptoms("conjunctives")))
-
-    print("Enter yes if you have strong body aches or no if you don't")
-    q4 = input()
-    if q4 == "Yes" or q4 == "yes":
-        my_engine.declare(Symptoms("strong body aches"))
-
-    print("Enter yes if you have weakness or no if you don't")
-    q4 = input()
-
-    if q4 == "Yes" or q4 == "yes":
-        my_engine.declare(Symptoms("weakness"))
-
-    print("Enter yes if you have vomiting or no if you don't")
-    q4 = input()
-
-    if q4 == "Yes" or q4 == "yes":
-        my_engine.declare(Symptoms("vomiting"))
-
-    print("Enter yes if you have sore throat or no if you don't")
-    q4 = input()
-
-    if q4 == "Yes" or q4 == "yes":
-        my_engine.declare(Symptoms("sore throat"))
-
-    print("Enter yes if you have sneezing or no if you don't")
-    q4 = input()
-
-    if q4 == "Yes" or q4 == "yes":
-        my_engine.declare(Symptoms("sneezing"))
-    #-------------------------------------------------------------------------low sugar
-    print("Are you feeling hungry")
-    q5 = input()
-    if q5 == 'yes' or q5 == 'Yes':
-        my_engine.declare(Symptoms("hunger"))
-
-    print("Are you shaky")
-    q6 = input()
-    if q6 == 'yes' or q6 == 'Yes':
-        my_engine.declare(Symptoms("shakiness"))
-
-    print("Are you pale?")
-    q7 = input()
-    if q7 == 'yes' or q7 == 'Yes':
-        my_engine.declare(Symptoms("pale"))
-
-    print("Do you have a headache?")
-    q8 = input()
-    if q8 == 'yes' or q8 == 'Yes':
-        my_engine.declare(Symptoms("headache"))
-
-    print("Are you feeling sweaty?")
-    q9 = input()
-    if q9 == 'yes' or q9 == 'Yes':
-        my_engine.declare(Symptoms("sweating"))
-
-    #---------------------------------------------
-
-    print("Do you have blurred vision")
-    q5 = input()
-    if q5 == 'yes' or q5 == 'Yes':
-        my_engine.declare(Symptoms("blurred vision"))
-
-    print("is your mouth dry?")
-    q6 = input()
-    if q6 == 'yes' or q6 == 'Yes':
-        my_engine.declare(Symptoms("dry mouth"))
-
-    print("Do you have smelly breath")
-    q7 = input()
-    if q7 == 'yes' or q7 == 'Yes':
-        my_engine.declare(Symptoms("smelly breath"))
-
-    print("Do you have shortness of breath")
-    q8 = input()
-    if q8 == 'yes' or q8 == 'Yes':
-        my_engine.declare(Symptoms("shortness of breath"))
-
-    print("Are you thirsty?")
-    q8 = input()
-    if q8 == 'yes' or q8 == 'Yes':
-        my_engine.declare(Symptoms("thirst"))'''
-
 
 def plant_fun():
     print("Enter Plant Temperature: ")
